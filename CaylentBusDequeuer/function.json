@@ -1,0 +1,22 @@
+{
+  "bindings": [
+    {
+      "name": "mySbMsg",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "queueName": "deploymentupdates",
+      "connection": "deploymentsqueue",
+      "accessRights": "Manage"
+    },
+    {
+      "type": "documentDB",
+      "name": "outDoc",
+      "databaseName": "deployed",
+      "collectionName": "events",
+      "createIfNotExists": true,
+      "connection": "caylentdeployments_DOCUMENTDB",
+      "direction": "out"
+    }
+  ],
+  "disabled": false
+}
