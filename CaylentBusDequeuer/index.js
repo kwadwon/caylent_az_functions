@@ -6,10 +6,10 @@ module.exports = function(context, mySbMsg) {
     //send post request to caylent endpoint
     const https = require('https');
     let options = {
-        hostname: "julia.dev-1.staging.caylent.io",
-        path: "/azure-notification",
-        method: "POST",
-        port: 443,
+        hostname: process.env.CAYLENT_NOTIFIER_HOSTNAME,
+        path: process.env.CAYLENT_NOTIFIER_PATH,
+        method: process.evn.CAYLENT_NOTIFIER_METHOD,
+        port: prorcess.env.CAYLENT_NOTIFIER_PORT,
         headers: {
             'Content-Type':'application/json',
         }
@@ -23,7 +23,7 @@ module.exports = function(context, mySbMsg) {
         });
     });
 
-    req.on('error', (e)=>{
+    req.on('error', (e)=> {
         context.log('error with request', e.message);
     });
 
