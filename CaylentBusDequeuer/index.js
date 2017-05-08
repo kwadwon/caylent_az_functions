@@ -1,5 +1,9 @@
+const logger = require('../shared/AzureLogAnalyticsHelper.js');
+
 module.exports = function(context, mySbMsg) {
     context.log('JavaScript ServiceBus queue trigger function processed message');
+    logger.writeLogEntry(context, "{message: 'JavaScript ServiceBus queue trigger function processed message'}");
+
     context.bindings.outDoc = mySbMsg;
 
 
@@ -20,11 +24,13 @@ module.exports = function(context, mySbMsg) {
         context.log('headers', res.headers);
         res.on('data', (d)=> {
             context.log('data:', d);
+            logger.writeLogEntry(context, `{data: '${d}'}`);
         });
     });
 
     req.on('error', (e)=> {
         context.log('error with request', e.message);
+        logger.writeLogEntry(context, `{message: '${e.message}'}`);
     });
 
     req.write(JSON.stringify(mySbMsg));
